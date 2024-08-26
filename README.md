@@ -1,89 +1,138 @@
-# Loja de Pudim - Backend
+# Backend para Gerenciamento de Estoque de Pudins
 
-## Descrição
+Este é o backend para uma aplicação de gerenciamento de estoque de uma loja que vende pudim. O backend é construído com Node.js e Express, e usa SQLite como banco de dados.
 
-Este é o backend da aplicação de gerenciamento de estoque para uma loja que vende pudim. A API é construída com Node.js e Express, e utiliza SQLite como banco de dados.
+## Funcionalidades
 
-## Tecnologias
+- **Autenticação de Usuário**: Registre, faça login e obtenha um token JWT.
+- **Gerenciamento de Produtos**: Crie, liste, atualize e remova produtos.
 
-- Node.js
-- Express
-- SQLite
-- bcryptjs
-- jsonwebtoken
+## Requisitos
+
+- [Node.js](https://nodejs.org/) (v14 ou superior)
+- [SQLite](https://www.sqlite.org/index.html)
 
 ## Instalação
 
-1. Clone o repositório:
+1. **Clone o repositório:**
+
     ```bash
-    git clone <URL_DO_REPOSITORIO>
-    cd <PASTA_DO_BACKEND>
+    git clone <URL_DO_SEU_REPOSITORIO>
+    cd nome-do-repositorio
     ```
 
-2. Instale as dependências:
+2. **Instale as dependências:**
+
     ```bash
     npm install
     ```
 
-3. Configure o banco de dados:
-    ```bash
-    node setup.js
+3. **Crie um arquivo `.env` na raiz do projeto e adicione a chave secreta:**
+
+    ```env
+    ACCESS_TOKEN_SECRET=your_super_secret_key
     ```
 
-4. Inicie o servidor:
+4. **Crie o banco de dados e as tabelas necessárias (se ainda não estiverem criadas).**
+
+## Scripts
+
+- **Iniciar o Servidor:**
+
     ```bash
     npm start
     ```
 
-## Endpoints
+- **Testar o Servidor:**
 
-### Autenticação
+    Para rodar testes, use:
 
-- **POST /api/register**: Cria um novo usuário.
-  - Body:
-    ```json
-    {
-      "nome": "Nome do Usuário",
-      "email": "email@example.com",
-      "senha": "senha123"
-    }
-    ```
-  - Response:
-    ```json
-    {
-      "message": "Usuário criado com sucesso",
-      "id": 1
-    }
+    ```bash
+    npm test
     ```
 
-- **POST /api/login**: Autentica um usuário e retorna um token.
-  - Body:
+## Endpoints da API
+
+### **Autenticação**
+
+- **POST /api/register**
+
+    Registra um novo usuário.
+
+    **Body:**
     ```json
     {
-      "email": "email@example.com",
-      "senha": "senha123"
-    }
-    ```
-  - Response:
-    ```json
-    {
-      "message": "Autenticado com sucesso",
-      "token": "JWT_TOKEN"
+        "username": "string",
+        "password": "string"
     }
     ```
 
-### Produtos
+- **POST /api/login**
 
-- **GET /api/produtos**: Lista todos os produtos.
-- **GET /api/produtos/:id**: Recupera detalhes de um produto específico.
-- **POST /api/produtos**: Cria um novo produto.
-- **PUT /api/produtos/:id**: Atualiza informações de um produto.
-- **DELETE /api/produtos/:id**: Remove um produto do estoque.
+    Faz login e retorna um token JWT.
 
-## Configuração
+    **Body:**
+    ```json
+    {
+        "username": "string",
+        "password": "string"
+    }
+    ```
 
-- **SECRET_KEY**: No arquivo `authController.js`, substitua `'seu-segredo-aqui'` por uma chave secreta real.
+### **Produtos**
 
-## Licença
+- **GET /api/produtos**
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+    Lista todos os produtos. Requer autenticação.
+
+- **GET /api/produtos/:id**
+
+    Recupera detalhes de um produto específico. Requer autenticação.
+
+- **POST /api/produtos**
+
+    Cria um novo produto. Requer autenticação.
+
+    **Body:**
+    ```json
+    {
+        "nome": "string",
+        "descricao": "string (opcional)",
+        "preco": "number",
+        "quantidade_em_estoque": "number"
+    }
+    ```
+
+- **PUT /api/produtos/:id**
+
+    Atualiza informações de um produto. Requer autenticação.
+
+    **Body:**
+    ```json
+    {
+        "nome": "string",
+        "descricao": "string (opcional)",
+        "preco": "number",
+        "quantidade_em_estoque": "number"
+    }
+    ```
+
+- **DELETE /api/produtos/:id**
+
+    Remove um produto do estoque. Requer autenticação.
+
+## Ambiente de Desenvolvimento
+
+Certifique-se de que as variáveis de ambiente estão configuradas corretamente no arquivo `.env`.
+
+## Problemas Comuns
+
+- **403 Forbidden**: Verifique se o token JWT está correto e se não expirou. Garanta que o token está sendo enviado no cabeçalho `Authorization` como `Bearer <token>`.
+
+## Contribuição
+
+Sinta-se à vontade para contribuir com melhorias ou correções! Abra um pull request ou crie uma issue para sugestões e problemas.
+
+---
+
+**Nota:** Este é um exemplo básico e pode precisar de ajustes de acordo com as especificidades do seu projeto.
