@@ -89,5 +89,29 @@ const addProduct = (req, res) => {
     });
 };
 
+const removeProduct = (req, res) => {
+    const id = req.params.id;
 
-module.exports = { getProdutos, criarProduto, getProdutoPorId, atualizarProduto, removerProduto, addProduct };
+    // Supondo que o `produtoModel` tenha um método para buscar o produto pelo ID
+    produtoModel.getProdutoPorId(id, (err, produto) => {
+        if (err) {
+            return res.status(400).json({ "error": err.message });
+        }
+
+        if (!produto) {
+            return res.status(404).json({ "message": "Produto não encontrado" });
+        }
+
+        const quantidadeAtualizada = produto.quantidade_em_estoque - 1;
+
+        produtoModel.atualizarProduto({ ...produto, quantidade_em_estoque: quantidadeAtualizada }, id, (err, changes) => {
+            if (err) {
+                return res.status(400).json({ "error": err.message });
+            }
+
+            res.json({ "message": "Quantidade do produto diminuida com sucesso" });
+        });
+    });
+};
+
+module.exports = { getProdutos, criarProduto, getProdutoPorId, atualizarProduto, removerProduto, addProduct, removeProduct };
