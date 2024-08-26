@@ -6,6 +6,9 @@
 //         console.log('Conectado ao banco de dados SQLite.');
 //     }
 // });
+
+require('dotenv').config(); // Adicione esta linha no início do arquivo
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -19,7 +22,7 @@ const authRoutes = require('./routes/authRoutes');
 app.use(cors({
     origin: 'http://localhost:3001', // Permitir requisições do frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Authorization, Content-Type']
 }));
 
 app.use(express.json());
