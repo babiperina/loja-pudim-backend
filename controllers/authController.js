@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../database/db');
 
-const SECRET_KEY = 'k5bb22yv'; // Substitua com uma chave secreta real
+const SECRET_KEY = 'substitua_seu_segredo_aqui'; // Substitua com uma chave secreta real
 
 const registrarUsuario = (req, res) => {
     const { nome, email, senha } = req.body;
