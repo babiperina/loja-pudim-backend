@@ -7,6 +7,7 @@ router.get('/produtos', authenticateToken, produtoController.getProdutos);
 router.post('/produtos', authenticateToken, produtoController.criarProduto);
 router.get('/produtos/:id', authenticateToken, produtoController.getProdutoPorId);
 router.put('/produtos/:id', authenticateToken, produtoController.atualizarProduto);
+router.patch('/produtos/:id/adicionar', authenticateToken, produtoController.addProduct);
 router.delete('/produtos/:id', authenticateToken, produtoController.removerProduto);
 
 

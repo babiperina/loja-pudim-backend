@@ -21,7 +21,7 @@ const authRoutes = require('./routes/authRoutes');
 // Configurar o middleware CORS
 app.use(cors({
     origin: 'http://localhost:3001', // Permitir requisições do frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Authorization, Content-Type']
 }));
 
